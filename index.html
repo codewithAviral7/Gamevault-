@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Game Vault Gaming Cafe</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3ed;--card:#fff;--tx:#1b140e;--mu:#6d6157;--ac:#e25a00;--bd:#e4dacd;--on:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b0e;--card:#16161b;--tx:#f5f1ea;--mu:#a89f95;--ac:#ff7a1a;--bd:#2b2b33;--on:#111;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0b0e;--card:#16161b;--tx:#f5f1ea;--mu:#a89f95;--ac:#ff7a1a;--bd:#2b2b33;--on:#111;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.6 Rubik,system-ui,sans-serif}
+h1,h2,h3{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;letter-spacing:.01em;margin:0;line-height:1.05}
+a{color:inherit}
+.w{max-width:960px;margin:0 auto;padding:0 20px}
+section{padding:44px 0}
+h2{font-size:clamp(30px,6vw,44px);margin-bottom:6px}
+.sub{color:var(--mu);margin:0 0 22px}
+.hero{padding:56px 0 36px;border-bottom:3px solid var(--ac)}
+.hero h1{font-size:clamp(54px,15vw,120px);text-transform:uppercase}
+.hero h1 b{font-weight:400;color:var(--ac)}
+.tag{font-size:20px;color:var(--mu);margin:10px 0 24px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:12px 20px;border-radius:6px;border:2px solid var(--ac);text-decoration:none;font-weight:500;background:none;color:var(--tx);cursor:pointer;font:500 16px Rubik,sans-serif}
+.btn.p{background:var(--ac);color:var(--on)}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.pc{background:var(--card);border:1px solid var(--bd);border-left:6px solid var(--ac);border-radius:6px;padding:16px}
+.pc .n{font-weight:500}
+.pc .v{font-family:Anton,Impact,sans-serif;font-size:46px;line-height:1.1;color:var(--ac)}
+.pc .v small{font:400 14px Rubik,sans-serif;color:var(--mu)}
+.pc .d{color:var(--mu);font-size:14px}
+.cat{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:16px;margin-bottom:12px}
+.cat h3{font-size:24px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chips li{border:1px solid var(--bd);border-radius:999px;padding:4px 12px;font-size:14px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.gal img,.ph{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;background:var(--card);border:1px solid var(--bd)}
+.ph{display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:14px;text-align:center;padding:10px}
+.ct{display:grid;gap:6px;margin-bottom:18px}
+footer{border-top:1px solid var(--bd);padding:22px 0 40px;color:var(--mu);font-size:14px}
+#adm{display:none;background:var(--card);border:2px solid var(--ac);border-radius:8px;padding:16px;margin:20px 0}
+#adm.on{display:block}
+#adm label{display:block;font-size:13px;color:var(--mu);margin:10px 0 3px}
+#adm input,#adm textarea{width:100%;font:400 15px Rubik,sans-serif;padding:8px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx)}
+#adm textarea{min-height:90px}
+.row{display:grid;grid-template-columns:2fr 1fr 2fr auto;gap:6px;margin-bottom:6px}
+.sm{padding:6px 12px;font-size:14px}
+.th{display:inline-block;position:relative;margin:4px}
+.th img{width:90px;height:68px;object-fit:cover;border-radius:6px}
+.th button{position:absolute;top:2px;right:2px}
+#msg{color:var(--ac);font-weight:500;min-height:1.4em}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+@media(max-width:560px){.row{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<header class="hero"><div class="w">
+<h1><span data-k="name"></span> <b>cafe</b></h1>
+<p class="tag" data-k="tag"></p>
+<div class="btns"><a class="btn p" id="wa" href="#">Book on WhatsApp</a><a class="btn" id="call" href="#">Call us</a></div>
+</div></header>
+
+<section><div class="w"><h2 data-k="hr"></h2><p class="sub">Prices <span data-k="unit"></span>. Walk-ins welcome.</p><div class="board" id="prices"></div></div></section>
+<section><div class="w"><h2 data-k="hm"></h2><p class="sub" data-k="about"></p><div id="cat"></div></div></section>
+<section><div class="w"><h2 data-k="hg"></h2><p class="sub">Our setups, screens and seats.</p><div class="gal" id="gal"></div></div></section>
+<section><div class="w"><h2 data-k="hf"></h2>
+<div class="ct"><div><b>Address:</b> <span data-k="addr"></span></div><div><b>Timings:</b> <span data-k="hours"></span></div><div><b>Phone:</b> <span data-k="phone"></span></div><div><b>Email:</b> <span data-k="email"></span></div></div>
+<div class="btns"><a class="btn p" id="wa2" href="#">Message on WhatsApp</a><a class="btn" id="mail" href="#">Send an email</a></div>
+</div></section>
+
+<footer><div class="w">
+<span data-k="name"></span> Gaming Cafe &nbsp; <button class="btn sm" id="lg">Owner login</button>
+<span id="lgf" hidden> <input id="pin" type="password" inputmode="numeric" placeholder="PIN" aria-label="Owner PIN" style="padding:6px;width:90px"> <button class="btn sm p" id="go">Open</button></span>
+<span id="err" style="color:var(--ac)"></span>
+<div id="adm"></div>
+</div></footer>
+
+<script>
+var D={name:"Game Vault",tag:"Play. Compete. Chill.",about:"PS5 and PS4 games, a racing wheel setup, and room to play together.",phone:"+91 90000 00000",email:"hello@gamevault.example",addr:"Your street, your city",hours:"11 AM to 11 PM, every day",unit:"per hour",pin:"0987",hr:"Rates",hm:"Game menu",hg:"Inside the cafe",hf:"Find us",
+prices:[["PS5 games","90","FC 26, WWE 2K25, GTA V and more"],["GTA VI (PS5)","150","The newest GTA"],["PS4 games","60","Legacy games, timeless fun"],["Steering wheel","75","Gran Turismo 7, SnowRunner"]],
+cat:[["PS5: next gen gaming","EA Sports FC 26\nWWE 2K25\nGTA V\nGTA VI (GTA 6)"],["PS4: legacy games","FC 25\nGTA V\nNeed for Speed\nWWE 2K25\nMortal Kombat\nRed Dead Redemption 2\nGod of War\nGhost of Tsushima\nTekken 7\nDoom\nIt Takes Two\nUnravel Two\nA Way Out"],["Racing wheel setup","Gran Turismo 7\nSnowRunner (off-road)"]],
+photos:[]};
+var S=JSON.parse(JSON.stringify(D));var ready=false;
+try{var sv=localStorage.getItem('gv');if(sv)S=Object.assign(S,JSON.parse(sv))}catch(e){}
+if(S.pin==='1234')S.pin='0987';
+var $=function(s){return document.querySelector(s)};
+function h(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function render(){
+document.title=S.name+" Gaming Cafe";
+document.querySelectorAll('[data-k]').forEach(function(e){e.textContent=S[e.dataset.k]});
+var dg=S.phone.replace(/\D/g,''),wa='https://wa.me/'+(dg.length==10?'91'+dg:dg)+'?text='+encodeURIComponent('Hi '+S.name+', I want to book a slot.');
+$('#wa').href=wa;$('#wa2').href=wa;$('#call').href='tel:'+S.phone.replace(/[^\d+]/g,'');$('#mail').href='mailto:'+S.email;
+var p=$('#prices');p.textContent='';
+S.prices.forEach(function(r){var c=h('div','pc');c.appendChild(h('div','n',r[0]));var v=h('div','v','₹'+r[1]+' ');v.appendChild(h('small','',S.unit));c.appendChild(v);c.appendChild(h('div','d',r[2]));p.appendChild(c)});
+var k=$('#cat');k.textContent='';
+S.cat.forEach(function(r){var c=h('div','cat');c.appendChild(h('h3','',r[0]));var u=h('ul','chips');r[1].split('\n').filter(function(x){return x.trim()}).forEach(function(g){u.appendChild(h('li','',g.trim()))});c.appendChild(u);k.appendChild(c)});
+var g=$('#gal');g.textContent='';
+if(!S.photos.length){for(var i=0;i<3;i++)g.appendChild(h('div','ph','Photo coming soon'))}
+S.photos.forEach(function(s){var m=document.createElement('img');m.src=s;m.alt='Inside '+S.name;m.loading='lazy';g.appendChild(m)});if(ready)save()}
+function save(){var m=$('#msg'),t='Saved automatically.';try{localStorage.setItem('gv',JSON.stringify(S))}catch(e){t='Could not save. Remove a photo and try again.'}if(m)m.textContent=t}
+function shrink(f,cb){var r=new FileReader();r.onload=function(){var i=new Image();i.onload=function(){var s=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.72))};i.src=r.result};r.readAsDataURL(f)}
+function field(par,lab,val,fn,ta){par.appendChild(h('label','',lab));var i=document.createElement(ta?'textarea':'input');i.value=val;i.oninput=function(){fn(i.value);render()};par.appendChild(i);return i}
+function cell(par,val,ph,fn){var i=document.createElement('input');i.value=val;i.placeholder=ph;i.setAttribute('aria-label',ph);i.oninput=function(){fn(i.value);render()};par.appendChild(i)}
+function admin(){
+var a=$('#adm');a.textContent='';a.classList.add('on');
+a.appendChild(h('h3','','Edit your website'));
+a.appendChild(h('p','sub','Every change saves automatically on this device. Nothing else to press.'));
+[['name','Cafe name'],['tag','Tagline'],['phone','Phone / WhatsApp number'],['email','Email'],['addr','Address'],['hours','Timings'],['unit','Price unit (for example: per hour)'],['pin','Owner PIN'],['hr','Heading: rates'],['hm','Heading: game menu'],['hg','Heading: photos'],['hf','Heading: contact']].forEach(function(f){field(a,f[1],S[f[0]],function(v){S[f[0]]=v})});
+field(a,'About line',S.about,function(v){S.about=v});
+a.appendChild(h('h3','','Prices'));a.firstChild;
+S.prices.forEach(function(r,n){var d=h('div','row');cell(d,r[0],'Name',function(v){r[0]=v});cell(d,r[1],'Price',function(v){r[1]=v});cell(d,r[2],'Note',function(v){r[2]=v});var b=h('button','btn sm','Remove');b.onclick=function(){S.prices.splice(n,1);render();admin()};d.appendChild(b);a.appendChild(d)});
+var ap=h('button','btn sm','Add price');ap.onclick=function(){S.prices.push(['New item','0','']);render();admin()};a.appendChild(ap);
+a.appendChild(h('h3','','Game menu'));
+S.cat.forEach(function(r,n){field(a,'Section title',r[0],function(v){r[0]=v});field(a,'Games (one per line)',r[1],function(v){r[1]=v},1);var b=h('button','btn sm','Remove section');b.onclick=function(){S.cat.splice(n,1);render();admin()};a.appendChild(b)});
+var ac=h('button','btn sm','Add section');ac.onclick=function(){S.cat.push(['New section','Game 1\nGame 2']);render();admin()};a.appendChild(document.createElement('br'));a.appendChild(ac);
+a.appendChild(h('h3','','Photos'));
+S.photos.forEach(function(s,n){var t=h('span','th'),m=document.createElement('img');m.src=s;m.alt='Photo '+(n+1);var b=h('button','btn sm','X');b.setAttribute('aria-label','Remove photo');b.onclick=function(){S.photos.splice(n,1);render();admin()};t.appendChild(m);t.appendChild(b);a.appendChild(t)});
+a.appendChild(h('label','','Add photos'));var fi=document.createElement('input');fi.type='file';fi.accept='image/*';fi.multiple=true;
+fi.onchange=function(){Array.prototype.forEach.call(fi.files,function(f){shrink(f,function(d){S.photos.push(d);render();admin()})})};a.appendChild(fi);
+a.appendChild(document.createElement('br'));
+var sb=h('button','btn p','Save now');sb.onclick=save;a.appendChild(sb);
+var cl=h('button','btn','Close');cl.onclick=function(){a.classList.remove('on')};a.appendChild(cl);
+var rs=h('button','btn','Reset to default');rs.onclick=function(){try{localStorage.removeItem('gv')}catch(e){}S=JSON.parse(JSON.stringify(D));render();admin()};a.appendChild(rs);
+a.appendChild(h('p','','')).id='msg';
+a.appendChild(h('label','','Backup (copy this text to keep or move your edits, without photos)'));
+var bk=document.createElement('textarea');var cp=JSON.parse(JSON.stringify(S));cp.photos=[];bk.value=JSON.stringify(cp);bk.onchange=function(){try{var o=JSON.parse(bk.value);o.photos=S.photos;S=Object.assign(S,o);render();admin()}catch(e){$('#msg').textContent='That backup text is not valid.'}};a.appendChild(bk)}
+$('#lg').onclick=function(){$('#lgf').hidden=false;$('#pin').focus()};
+$('#go').onclick=function(){if($('#pin').value===S.pin){$('#err').textContent='';$('#pin').value='';admin();$('#adm').scrollIntoView()}else $('#err').textContent=' Wrong PIN.'};
+render();ready=true;
+</script></body></html>
